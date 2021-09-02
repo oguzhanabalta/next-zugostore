@@ -20,8 +20,14 @@ const useStyles = makeStyles({
         minHeight: '80vh',
     },
     footer: {
+        marginTop:20,
         textAlign: 'center',
+        color: '#8142EB',
     },
+    section: {
+        marginTop:10,
+        marginBottom:10,
+    }
 });
 
 export default useStyles;
