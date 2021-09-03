@@ -1,11 +1,12 @@
 import { Button, Grid, Link, MenuItem, Select, TableBody,Card, TableCell, TableContainer, TableHead, TableRow, Typography,Table, List, ListItem } from '@material-ui/core';
 import React, { useContext } from 'react'
+import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store'
 import NextLink from 'next/link'
 import Image from 'next/image';
 
-export default function CartScreen() {
+function CartScreen() {
     const {state} = useContext(Store);
     const {cart: {cartItems},} = state;
 
@@ -89,3 +90,6 @@ export default function CartScreen() {
         </Layout>
     )
 }
+
+
+export default dynamic(() => Promise.resolve(CartScreen), {ssr:false}); 
