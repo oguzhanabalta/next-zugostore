@@ -12,12 +12,32 @@ export default function Layout({title, description, children}) {
     const theme= createMuiTheme({
         typography:{
             h1:{
-                fontsize:'1.6rem',
+                fontSize:'5.6rem',
                 fontWeight: 400,
                 margin: '1rem 0',
             },
             h2:{
-                fontsize:'1.4rem',
+                fontSize:'4.6rem',
+                fontWeight: 400,
+                margin: '1rem 0',
+            },
+            h3:{
+                fontSize:'3.6rem',
+                fontWeight: 400,
+                margin: '1rem 0',
+            },
+            h4:{
+                fontSize:'2.6rem',
+                fontWeight: 400,
+                margin: '1rem 0',
+            },
+            h5:{
+                fontSize:'1.6rem',
+                fontWeight: 400,
+                margin: '1rem 0',
+            },
+            h6:{
+                fontSize:'1rem',
                 fontWeight: 400,
                 margin: '1rem 0',
             },
