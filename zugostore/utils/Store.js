@@ -1,5 +1,5 @@
-import Cookies from "js-cookie";
-import { createContext, useReducer } from "react";
+import  Cookies from 'js-cookie';
+import { createContext, useReducer } from 'react';
 
 export const Store= createContext();
 const initialState = {
@@ -7,9 +7,7 @@ const initialState = {
     cart: {
         cartItems: Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')): [],
     },
-
-    //userInfo: Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo')) : null,
-    
+    userInfo: Cookies.get('userInfo') ? Cookies.get('userInfo')  : null,
 };
 
 function reducer(state, action) {
@@ -33,7 +31,7 @@ function reducer(state, action) {
         }
         case 'USER_LOGIN':
             return { ...state, userInfo: action.payload };
-          case 'USER_LOGOUT':
+        case 'USER_LOGOUT':
             return { ...state, userInfo: null, cart: { cartItems: [] } };
         default:
             return state;
