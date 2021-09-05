@@ -61,10 +61,10 @@ export default function Layout({ title, description, children }) {
     palette: {
       type: darkMode ? "dark" : "light",
       primary: {
-        main: "#FCA92B",
+        main: "#F2BC57",
       },
       secondary: {
-        main: "#208080",
+        main: "#732F20",
       },
     },
   });
@@ -100,7 +100,7 @@ export default function Layout({ title, description, children }) {
           <Toolbar>
             <NextLink href="/" passHref>
               <Link>
-                <Typography className={classes.brand}>ZugoStore</Typography>
+                <Typography className={classes.brand} color="secondary">ZugoStore</Typography>
               </Link>
             </NextLink>
             <div className={classes.grow}></div>
@@ -108,7 +108,7 @@ export default function Layout({ title, description, children }) {
               <Switch
                 checked={darkMode}
                 onChange={darkModeChangeHandler}
-                color="primary"
+                color="secondary"
               ></Switch>
               <NextLink href="/cart" passHref>
                 <Link>

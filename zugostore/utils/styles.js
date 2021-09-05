@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
     navbar: {
-        backgroundColor:'#8142EB',
+        backgroundColor:'#F2BC57',
         '& a': {
             color: '#ffffff',
             marginLeft: 10,
@@ -11,7 +11,6 @@ const useStyles = makeStyles({
     brand:{
         fontWeight:'bold',
         fontSize: '1.5rem',
-        color: 'black',
     },
     grow: {
         flexGrow:1,
@@ -22,7 +21,8 @@ const useStyles = makeStyles({
     footer: {
         marginTop:20,
         textAlign: 'center',
-        color: '#8142EB',
+        fontWeight: 'bold',
+        color: '#F2A950',
     },
     section: {
         marginTop:10,
