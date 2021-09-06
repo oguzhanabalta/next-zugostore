@@ -32,7 +32,7 @@ function CartScreen() {
 
     return (
         <Layout title="Shoping Card">
-            <Typography component="h1" variant="h1">Shopping Card</Typography>
+            <Typography component="h3" variant="h3">Shopping Card</Typography>
             {cartItems.length === 0 ? (
                 <div>
                     Cart is empty. 
