@@ -14,7 +14,7 @@ import { Store } from "../utils/Store";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
-import CheckOutWizard from "../components/checkOutWizard";
+import CheckOutWizard from "../components/CheckOutWizard";
 
 export default function Shipping() {
   const {
@@ -29,8 +29,8 @@ export default function Shipping() {
   const { userInfo, cart: {shippingAddress} } = state;
   useEffect(() => {
     if (!userInfo) {
-      router.push("/login?redirect=/shipping");
-    }
+      router.push('/login?redirect=/shipping');
+    } 
     setValue('fullName', shippingAddress.fullName);
     setValue('address', shippingAddress.address);
     setValue('city', shippingAddress.city);
