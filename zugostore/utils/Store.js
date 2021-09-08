@@ -2,13 +2,14 @@ import  Cookies from 'js-cookie';
 import { createContext, useReducer } from 'react';
 
 export const Store= createContext();
+
 const initialState = {
     darkMode: Cookies.get('darkMode') === 'ON' ? true : false,
+    userInfo: Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo'))  : null,
     cart: {
         cartItems: Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')): [],
-        shippingAddress: Cookies.get('shippingAddress') ? /*JSON.parse(Cookies.get('shippingAddress'))*/ Cookies.get('shippingAddress'):{},
+        shippingAddress: Cookies.get('shippingAddress') ? Cookies.get('shippingAddress') : {},
     },
-    userInfo: Cookies.get('userInfo') ? Cookies.get('userInfo')  : null,
 };
 
 function reducer(state, action) {

@@ -9,7 +9,6 @@ import {
   RadioGroup,
   Typography,
 } from "@material-ui/core";
-import { mergeClasses } from "@material-ui/styles";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
@@ -60,7 +59,7 @@ export default function Payment() {
                 aria-label="Payment Method"
                 name="paymentMethod"
                 value={paymentMethod}
-                onChange={(e) => e.target.value}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               >
                   <FormControlLabel  label="PayPal" value="PayPal" control={<Radio/>}></FormControlLabel>
                   <FormControlLabel label="Stripe" value="Stripe" control={<Radio/>}></FormControlLabel>

@@ -26,7 +26,7 @@ export default function Shipping() {
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
-  const { userInfo, cart: {shippingAddress} } = state;
+  const { userInfo, cart: { shippingAddress } } = state;
   useEffect(() => {
     if (!userInfo) {
       router.push('/login?redirect=/shipping');
@@ -43,13 +43,15 @@ export default function Shipping() {
       type: "SAVE_SHIPPING_ADDRES",
       payload: { fullName, address, city, postalCode, country },
     });
-    Cookies.set("shippingAddress", {
+    const payload = JSON.stringify({
       fullName,
       address,
       city,
       postalCode,
       country,
     });
+
+    Cookies.set("shippingAddress", payload);
     router.push("/payment");
   };
   return (
