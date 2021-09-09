@@ -88,9 +88,9 @@ function PlaceOrder() {
   };
 
   return (
-    <Layout title="Shoping Card">
+    <Layout title="Shopping Cart">
       <Typography component="h3" variant="h3">
-        Shopping Card
+        Place Order
       </Typography>
       <Grid container spacing={1}>
         <Grid item md={8} xs={12}>

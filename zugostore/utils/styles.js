@@ -42,6 +42,9 @@ const useStyles = makeStyles({
     },
     section: {
         margin:10,
+    },
+    error: {
+        color:'#f04040',
     }
 });
 

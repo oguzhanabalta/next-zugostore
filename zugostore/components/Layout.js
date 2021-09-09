@@ -12,7 +12,7 @@ import {
   Menu,
   MenuItem,
   CssBaseline,
-  createMuiTheme,
+  createTheme,
   Switch,
   Button,
 } from "@material-ui/core";
@@ -25,7 +25,7 @@ export default function Layout({ title, description, children }) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
-  const theme = createMuiTheme({
+  const theme = createTheme({
     typography: {
       h1: {
         fontSize: "5.6rem",
