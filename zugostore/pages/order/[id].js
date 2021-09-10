@@ -1,48 +1,47 @@
+import React, { useContext, useEffect, useReducer } from 'react';
+import dynamic from 'next/dynamic';
+import Layout from '../../components/Layout';
+import { Store } from '../../utils/Store';
+import NextLink from 'next/link';
+import Image from 'next/image';
 import {
-  Button,
   Grid,
-  Link,
-  MenuItem,
-  Select,
-  TableBody,
-  Card,
-  TableCell,
   TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
   Table,
+  Typography,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Link,
+  CircularProgress,
+  Button,
+  Card,
   List,
   ListItem,
-  CircularProgress,
-} from "@material-ui/core";
-import React, { useContext, useEffect, useReducer, useState } from "react";
-import Layout from "../../components/Layout";
-import dynamic from "next/dynamic";
-import { Store } from "../../utils/Store";
-import CheckOutWizard from "../../components/CheckOutWizard";
-import NextLink from "next/link";
-import Image from "next/image";
-import axios from "axios";
-import { useRouter } from "next/router";
-import useStyles from "../../utils/styles";
-import { useSnackbar } from "notistack";
-import { getError } from "../../utils/error";
-import Cookies from "js-cookie";
+} from '@material-ui/core';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import useStyles from '../../utils/styles';
+import { useSnackbar } from 'notistack';
+import { getError } from '../../utils/error';
+import CheckOutWizard from '../../components/CheckoutWizard';
 
 function reducer(state, action) {
   switch (action.type) {
-    case "FETCH_REQUEST":
-      return { ...state, loading: true, error: "" };
-    case "FETCH_SUCCESS":
-      return { ...state, loading: false, order: action.payload, error: "" };
-    case "FETCH_FAIL":
-      return { ...state, loading: false, error: action.payload};
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true, error: '' };
+    case 'FETCH_SUCCESS':
+      return { ...state, loading: false, order: action.payload, error: '' };
+    case 'FETCH_FAIL':
+      return { ...state, loading: false, error: action.payload };
+    default:
+      state;
   }
 }
 
 function Order({ params }) {
-  const orderId = params._id;
+  const orderId = params.id;
   const classes = useStyles();
   const router = useRouter();
   const { state } = useContext(Store);
@@ -50,24 +49,36 @@ function Order({ params }) {
 
   const [{ loading, error, order }, dispatch] = useReducer(reducer, {
     loading: true,
-    order: {},
-    error: "",
+    order: { },
+    error: '',
   });
-  const {shippingAddress, paymentMethod, orderItems, itemsPrice, taxPrice,shippingPrice, totalPrice} = order;
+  const {
+    shippingAddress,
+    paymentMethod,
+    orderItems,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    isPaid,
+    paidAt,
+    isDelivered,
+    deliveredAt,
+  } = order;
 
   useEffect(() => {
     if (!userInfo) {
-      return router.push("/login");
+      return router.push('/login');
     }
     const fetchOrder = async () => {
       try {
-        dispatch({ type: "FETCH_REQUEST" });
+        dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
-        dispatch({ type: "FECTH SUCCCESS", payload: data });
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     if (!order._id || (order._id && order._id !== orderId)) {
@@ -78,6 +89,7 @@ function Order({ params }) {
 
   return (
     <Layout title={`Order ${orderId}`}>
+      <CheckOutWizard activeStep={3}></CheckOutWizard>
       <Typography component="h3" variant="h3">
         Order {orderId}
       </Typography>
@@ -87,7 +99,7 @@ function Order({ params }) {
         <Typography className={classes.error}>{error}</Typography>
       ) : (
         <Grid container spacing={1}>
-          <Grid item md={8} xs={12}>
+          <Grid item md={9} xs={12}>
             <Card className={classes.section}>
               <List>
                 <ListItem>
@@ -96,12 +108,15 @@ function Order({ params }) {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  {shippingAddress.fullName}, {shippingAddress.address},{" "}
-                  {shippingAddress.city}, {shippingAddress.postalCode},{" "}
+                  {shippingAddress.fullName}, {shippingAddress.address},{' '}
+                  {shippingAddress.city}, {shippingAddress.postalCode},{' '}
                   {shippingAddress.country}
                 </ListItem>
                 <ListItem>
-                  Status: {isDelivered ? `delivered at ${deliveredAt}` : 'not delivered'}
+                  Status:{' '}
+                  {isDelivered
+                    ? `delivered at ${deliveredAt}`
+                    : 'not delivered'}
                 </ListItem>
               </List>
             </Card>
@@ -113,6 +128,9 @@ function Order({ params }) {
                   </Typography>
                 </ListItem>
                 <ListItem>{paymentMethod}</ListItem>
+                <ListItem>
+                  Status: {isPaid ? `paid at ${paidAt}` : 'not paid'}
+                </ListItem>
               </List>
             </Card>
             <Card className={classes.section}>
@@ -148,6 +166,7 @@ function Order({ params }) {
                                 </Link>
                               </NextLink>
                             </TableCell>
+
                             <TableCell>
                               <NextLink href={`/product/${item.slug}`} passHref>
                                 <Link>
@@ -170,7 +189,7 @@ function Order({ params }) {
               </List>
             </Card>
           </Grid>
-          <Grid md={4} xs={12}>
+          <Grid item md={3} xs={12}>
             <Card className={classes.section}>
               <List>
                 <ListItem>

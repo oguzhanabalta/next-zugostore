@@ -47,21 +47,20 @@ function PlaceOrder() {
 
   useEffect(() => {
     if (!paymentMethod) {
-      router.push("/payment");
+      router.push('/payment');
     }
-    if(cartItems.length === 0 ) {
+    if (cartItems.length === 0) {
       router.push('/cart');
-    } 
+    }
   }, []);
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
-
   const placeOrderHandler = async () => {
     closeSnackbar();
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "/api/orders",
+        '/api/orders',
         {
           orderItems: cartItems,
           shippingAddress,
@@ -77,13 +76,13 @@ function PlaceOrder() {
           },
         }
       );
-      dispatch({ type: "CART_CLEAR" });
-      Cookies.remove("cartItems");
+      dispatch({ type: 'CART_CLEAR' });
+      Cookies.remove('cartItems');
       setLoading(false);
       router.push(`/order/${data._id}`);
     } catch (err) {
       setLoading(false);
-      enqueueSnackbar(getError(err), { variant: "error" });
+      enqueueSnackbar(getError(err), { variant: 'error' });
     }
   };
 

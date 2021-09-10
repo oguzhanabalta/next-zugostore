@@ -40,20 +40,20 @@ export default function Shipping() {
   const classes = useStyles();
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
     dispatch({
-      type: "SAVE_SHIPPING_ADDRES",
-      payload: { fullName, address, city, postalCode, country },
+      type: 'SAVE_SHIPPING_ADDRESS',
+      payload: { fullName, address, city, postalCode, country, location },
     });
-    const payload = JSON.stringify({
+    Cookies.set('shippingAddress', {
       fullName,
       address,
       city,
       postalCode,
       country,
+      location,
     });
-
-    Cookies.set("shippingAddress", payload);
-    router.push("/payment");
+    router.push('/payment');
   };
+
   return (
     <Layout title="Shipping">
       <CheckOutWizard activeStep={1} />
